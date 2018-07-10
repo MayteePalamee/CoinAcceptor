@@ -6,43 +6,36 @@ using System.Threading.Tasks;
 
 namespace CoinAcceptor{
 
-    public class CoinAcceptor {
-       
-        /*provides event data*/
-        public delegate void eventhandle(object sender, String status);
+    public class coinacceptor {
         /*event delegate.*/
-        public event eventhandle events;
-
-        private void onConnect(String command)
+        //public event EventHandler<EventHandle> onconnect;
+        public delegate void MyEventHandler(object sender, String args);
+        public event MyEventHandler onconnect = delegate { };
+        /*delegate method handle event*/
+        protected virtual void onConnect(String e)
         {
-            eventhandle raiseEvent = events;
-            Status status = new Status();
-            /* try
-             {
-
-             }
-             catch(Exception ex)
-             {*/
-            //status.Fault = ex.Message;
-            status.Fault = "Connection Fault";
-            raiseEvent(this, status.Fault);
-            //}
-        } 
-
-        private void onDisconncet(String command)
-        {
-            eventhandle raiseEvent = events;
-            Status status = new Status();
-            /* try
-             {
-
-             }
-             catch(Exception ex)
-             {*/
-            //status.Fault = ex.Message;
-            status.Fault = "Disconnect Fault";
-            raiseEvent(this, status.Fault);
-            //}
+            MyEventHandler handler = this.onconnect;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
+
+        public void connect(String command)
+        {
+            Status status = new Status();
+            try
+             {
+
+             }
+             catch(Exception ex)
+             {
+                status.Fault = ex.Message;
+                //status.Fault = "Connection Fault : " + command;
+                /*raise event*/
+                onConnect(status.Fault);
+            }
+        }
+
     }
 }
