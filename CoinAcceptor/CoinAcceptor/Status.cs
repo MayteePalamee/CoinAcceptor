@@ -12,7 +12,7 @@ namespace CoinAcceptor
         private String disconnect;
         private String fault;
         private String unavailable;
-
+ 
         public String Connect
         {
             get { return connect; }

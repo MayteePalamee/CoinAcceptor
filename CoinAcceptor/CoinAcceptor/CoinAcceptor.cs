@@ -3,39 +3,96 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO.Ports;
+using System.Configuration;
 namespace CoinAcceptor{
 
-    public class coinacceptor {
-        /*event delegate.*/
-        //public event EventHandler<EventHandle> onconnect;
-        public delegate void MyEventHandler(object sender, String args);
-        public event MyEventHandler onconnect = delegate { };
-        /*delegate method handle event*/
-        protected virtual void onConnect(String e)
-        {
-            MyEventHandler handler = this.onconnect;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+    public class Coinacceptor : SerialPortHelper, DevicesHelper
+    {
+        /**Initialzed**/
+        private SerialPort _serialPort = new SerialPort();
+        private Status status;
+        /**
+         * event delegate.
+         **/
+        public delegate void raiseEvent(String message);
+        public event raiseEvent Raise = delegate { };
+        /**
+         * delegate method handle raise event
+         **/
+        protected virtual void onRaiseEvent(String message){
+            raiseEvent Handler = this.Raise;
+            if (Handler != null){ Handler(message);}
         }
+        /**
+         * connect to devices.
+         **/
+        public Status Connect(String command){
+            status = new Status();
+            try{
+                /*_serialPort = Initial();
+                _serialPort.Open();
 
-        public void connect(String command)
-        {
-            Status status = new Status();
-            try
-             {
+                if (_serialPort.IsOpen){
 
-             }
-             catch(Exception ex)
-             {
+                }*/
+            }
+            catch(Exception ex){
                 status.Fault = ex.Message;
-                //status.Fault = "Connection Fault : " + command;
-                /*raise event*/
-                onConnect(status.Fault);
+                onRaiseEvent(status.Fault);  
             }
+            return status;
         }
+        /**
+         * send command to devices.
+         **/
+        public Status Send(string command){
+            status = new Status();
+            try{
 
+            }catch (Exception ex){
+                status.Fault = ex.Message;
+                onRaiseEvent(status.Fault);
+            }
+            return status;
+        }
+        /**
+         * disconnect devices.
+         **/
+        public Status Disconnect(string command){
+            status = new Status();
+            try{
+
+            }catch (Exception ex){
+                status.Fault = ex.Message;
+                onRaiseEvent(status.Fault);
+            }
+            return status;
+        }
+        /**
+         * enabled devices.
+         **/
+        public Status Enabled(){
+            try{
+
+            }catch (Exception ex){
+                status.Fault = ex.Message;
+                onRaiseEvent(status.Fault);
+            }
+            return status;
+        }
+        /**
+         * disabled devices.
+         **/
+        public Status Disabled(){
+            status = new Status();
+            try{
+
+            }catch (Exception ex){
+                status.Fault = ex.Message;
+                onRaiseEvent(status.Fault);
+            }
+            return status;
+        }
     }
 }
