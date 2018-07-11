@@ -9,9 +9,10 @@ namespace CoinAcceptor
     public interface DevicesHelper
     {
         Status Connect(String command);
-        Status Send(String command);
+        Status Transmitte(String command);
         Status Disconnect(String command);
         Status Enabled();
         Status Disabled();
+        Status Received(String command);
     }
 }

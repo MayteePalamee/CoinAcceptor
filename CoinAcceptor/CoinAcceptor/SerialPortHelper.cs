@@ -27,7 +27,11 @@ namespace CoinAcceptor
         }
 
         /**
-         * 
+         * Receive data from SerialPort
+         **/
+
+        /**
+         * Send data to SerialPort
          **/
 
         /**

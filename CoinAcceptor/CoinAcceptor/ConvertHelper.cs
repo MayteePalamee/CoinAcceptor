@@ -32,5 +32,10 @@ namespace CoinAcceptor
             }
             return buffer;
         }
+
+        protected String ConvertByteToHex(Byte bytes){
+
+            return null;
+        }
     }
 }

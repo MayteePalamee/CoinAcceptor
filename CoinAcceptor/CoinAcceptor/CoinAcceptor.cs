@@ -46,11 +46,27 @@ namespace CoinAcceptor{
         /**
          * send command to devices.
          **/
-        public Status Send(string command){
+        public Status Transmitte(string command){
             status = new Status();
             try{
 
             }catch (Exception ex){
+                status.Fault = ex.Message;
+                onRaiseEvent(status.Fault);
+            }
+            return status;
+        }
+        /**
+        * send command to devices.
+        **/
+        public Status Received(string command){
+            status = new Status();
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
                 status.Fault = ex.Message;
                 onRaiseEvent(status.Fault);
             }
