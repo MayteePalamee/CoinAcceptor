@@ -12,7 +12,9 @@ namespace CoinAcceptor
         private String disconnect;
         private String fault;
         private String unavailable;
- 
+        private String success;
+        private String ready;
+
         public String Connect
         {
             get { return connect; }
@@ -32,6 +34,16 @@ namespace CoinAcceptor
         {
             get { return unavailable; }
             set { unavailable = value; }
+        }
+        public String Success
+        {
+            get { return success; }
+            set { success = value; }
+        }
+        public String Ready
+        {
+            get { return ready; }
+            set { ready = value; }
         }
     }
 }
