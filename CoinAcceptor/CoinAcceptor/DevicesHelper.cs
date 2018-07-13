@@ -8,11 +8,12 @@ namespace CoinAcceptor
 {
     public interface DevicesHelper
     {
-        Status Connect(String command);
-        Status Transmitte(String command);
-        Status Disconnect(String command);
-        Status Enabled();
-        Status Disabled();
-        Status Received(String command);
+        Response Connect();
+        Response Transmitte(String command);
+        Response Disconnect();
+        Response Enabled();
+        Response Disabled();
+        Response Received();
+        Response Parallel(String command);
     }
 }

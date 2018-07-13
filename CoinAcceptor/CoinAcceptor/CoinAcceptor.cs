@@ -11,15 +11,11 @@ namespace CoinAcceptor{
     {
         /**
         * event delegate.
+        * Declare the event using EventHandler<T>
         **/
-        /*public delegate void EventHandler(object sender, Events message);
-          public event EventHandler Raise = delegate { };*/
-        // Declare the event using EventHandler<T>
+
         public event EventHandler<Events> RaiseEvents;
 
-        /**Initialzed**/
-        private SerialPort _serialPort = new SerialPort();
-        private Status status;
         /**
          * delegate method handle raise event
          **/
@@ -27,11 +23,14 @@ namespace CoinAcceptor{
             RaiseEvents?.Invoke(this, e);
         }
 
+        /**Initialzed**/
+        private SerialPort _serialPort = new SerialPort();
+        private Response response;
         /**
          * connect to devices.
          **/
-        public Status Connect(String command){
-            status = new Status();
+        public Response Connect(){
+            response = new Response();
             try{
                 /*_serialPort = Initial();
                 _serialPort.Open();
@@ -39,133 +38,97 @@ namespace CoinAcceptor{
                 if (_serialPort.IsOpen){
 
                 }*/
-                status.Success = "connect On Connect!";
-                OnRaiseEvent(new Events(status.Success));
+                response.Success = "connect On Connect!";
+                OnRaiseEvent(new Events(response.Success));
             }
             catch(Exception ex){
-                status.Fault = ex.Message;
-                OnRaiseEvent(new Events(status.Fault));  
+                response.Fault = ex.Message;
+                OnRaiseEvent(new Events(response.Fault));  
             }
-            return status;
+            return response;
         }
         /**
          * send command to devices.
          **/
-        public Status Transmitte(string command){
-            status = new Status();
+        public Response Transmitte(string command){
+            response = new Response();
             try{
 
             }catch (Exception ex){
-                status.Fault = ex.Message;
-                //OnRaiseEvent(status.Fault);
+                response.Fault = ex.Message;
+                OnRaiseEvent(new Events(response.Fault));
             }
-            return status;
+            return response;
         }
         /**
         * send command to devices.
         **/
-        public Status Received(string command){
-            status = new Status();
+        public Response Received(){
+            response = new Response();
             try
             {
 
             }
             catch (Exception ex)
             {
-                status.Fault = ex.Message;
-                //OnRaiseEvent(status.Fault);
+                response.Fault = ex.Message;
+                OnRaiseEvent(new Events(response.Fault));
+
             }
-            return status;
+            return response;
         }
         /**
          * disconnect devices.
          **/
-        public Status Disconnect(string command){
-            status = new Status();
+        public Response Disconnect(){
+            response = new Response();
             try{
 
             }catch (Exception ex){
-                status.Fault = ex.Message;
-                //OnRaiseEvent(status.Fault);
+                response.Fault = ex.Message;
+                OnRaiseEvent(new Events(response.Fault));
             }
-            return status;
+            return response;
         }
         /**
          * enabled devices.
          **/
-        public Status Enabled(){
+        public Response Enabled(){
             try{
 
             }catch (Exception ex){
-                status.Fault = ex.Message;
-                //OnRaiseEvent(status.Fault);
+                response.Fault = ex.Message;
+                OnRaiseEvent(new Events(response.Fault));
             }
-            return status;
+            return response;
         }
         /**
          * disabled devices.
          **/
-        public Status Disabled(){
-            status = new Status();
+        public Response Disabled(){
+            response = new Response();
             try{
 
             }catch (Exception ex){
-                status.Fault = ex.Message;
-                //OnRaiseEvent(status.Fault);
+                response.Fault = ex.Message;
+                OnRaiseEvent(new Events(response.Fault));
             }
-            return status;
+            return response;
         }
 
-        /**
-         * coin-acceptor sensor1.
-         **/
-        public Status CoinAcceptorSensor1()
+        public Response Parallel(string command)
         {
-            status = new Status();
+            response = new Response();
             try
             {
 
             }
             catch (Exception ex)
             {
-                status.Fault = ex.Message;
-                //OnRaiseEvent(status.Fault);
+                response.Fault = ex.Message;
+                OnRaiseEvent(new Events(response.Fault));
             }
-            return status;
-        }
-        /**
-         * coin-acceptor sensor2.
-         **/
-        public Status CoinAcceptorSensor2()
-        {
-            status = new Status();
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                status.Fault = ex.Message;
-                //OnRaiseEvent(status.Fault);
-            }
-            return status;
-        }
-        /**
-         * coin-acceptor sensor3.
-         **/
-        public Status CoinAcceptorSensor3()
-        {
-            status = new Status();
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                status.Fault = ex.Message;
-                //OnRaiseEvent(status.Fault);
-            }
-            return status;
+            return response;
         }
     }
 }

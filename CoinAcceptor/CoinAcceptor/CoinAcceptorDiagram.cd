@@ -3,7 +3,7 @@
   <Class Name="CoinAcceptor.Coinacceptor">
     <Position X="0.5" Y="3.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAQAAAABADmAAIAAAACAIIgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAQAAEABAAGAAIAAAACAIIgAAAAAAAAAAAAAACAAAAA=</HashCode>
       <FileName>CoinAcceptor.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="1.96" />
@@ -22,17 +22,17 @@
       <FileName>SerialPortHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CoinAcceptor.Status">
-    <Position X="6" Y="0.75" Width="1.5" />
+  <Class Name="CoinAcceptor.Response">
+    <Position X="6" Y="0.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAQAgAAQAYAAEAEAgAAAAIAAAgAAAAIAAAAAAAAEAAA=</HashCode>
-      <FileName>Status.cs</FileName>
+      <HashCode>EAQAgAAQAYAAEAEAgAACAIAAAgAAAAIAAAAAABAEEAA=</HashCode>
+      <FileName>Response.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="CoinAcceptor.DevicesHelper">
     <Position X="3.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAABAAAAAIAAAACAAIgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAQAAAABAAAAAIAAAACAAIgAAAAAAAAAAAAAACAAAAA=</HashCode>
       <FileName>DevicesHelper.cs</FileName>
     </TypeIdentifier>
   </Interface>
