@@ -32,12 +32,10 @@ namespace CoinAcceptor{
         public Response Connect(){
             response = new Response();
             try{
-                /*_serialPort = Initial();
-                _serialPort.Open();
-
+                _serialPort = Initial();
                 if (_serialPort.IsOpen){
 
-                }*/
+                }
                 response.Success = "connect On Connect!";
                 OnRaiseEvent(new Events(response.Success));
             }

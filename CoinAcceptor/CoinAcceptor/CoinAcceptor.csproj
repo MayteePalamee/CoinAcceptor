@@ -50,9 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CoinAcceptorDiagram.cd" />
-    <None Include="Resource\Applications.config">
-      <SubType>Designer</SubType>
-    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CoinAcceptor.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

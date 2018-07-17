@@ -25,12 +25,12 @@
   <Class Name="CoinAcceptor.Response">
     <Position X="6" Y="0.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>EAQAgAAQAYAAEAEAgAACAIAAAgAAAAIAAAAAABAEEAA=</HashCode>
+      <HashCode>EYQAkACQAaAAEAEggAACAIAAAgAAAAIAAAAAABEEEBA=</HashCode>
       <FileName>Response.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="CoinAcceptor.DevicesHelper">
-    <Position X="3.75" Y="3.5" Width="1.5" />
+    <Position X="3.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAABAAAAAIAAAACAAIgAAAAAAAAAAAAAACAAAAA=</HashCode>
       <FileName>DevicesHelper.cs</FileName>
