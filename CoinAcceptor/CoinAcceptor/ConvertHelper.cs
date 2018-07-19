@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace CoinAcceptor
 {
+    /// <summary>
+    /// data convert
+    /// </summary>
     public class ConvertHelper
     {
+        /// <summary>
+        /// convert String binary format to String hex format.
+        /// </summary>
+        /// <param name="binary">string binary format.</param>
+        /// <returns>string hex format</returns>
         protected String ConvertBinaryToHex(String binary){
             StringBuilder result = new StringBuilder(binary.Length / 8 + 1);
             int divide = binary.Length % 8;
@@ -22,7 +30,11 @@ namespace CoinAcceptor
 
             return result.ToString();
         }
-
+        /// <summary>
+        /// convert string hex to byte.
+        /// </summary>
+        /// <param name="hex">string hex format.</param>
+        /// <returns>Byte[]</returns>
         protected Byte[] ConvertHexToByte(String hex) {
             hex = hex.Replace(" ", "");
             byte[] buffer = new byte[hex.Length / 2];
@@ -32,7 +44,11 @@ namespace CoinAcceptor
             }
             return buffer;
         }
-
+        /// <summary>
+        /// convert byte data to String hex format.
+        /// </summary>
+        /// <param name="bytes">data byte</param>
+        /// <returns>string hex format.</returns>
         protected String ConvertByteToHex(Byte bytes){
 
             return null;

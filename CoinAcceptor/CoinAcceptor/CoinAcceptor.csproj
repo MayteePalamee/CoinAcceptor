@@ -49,5 +49,8 @@
     <Compile Include="SerialPortHelper.cs" />
     <Compile Include="Response.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

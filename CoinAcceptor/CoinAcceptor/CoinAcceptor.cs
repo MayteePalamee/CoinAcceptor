@@ -12,15 +12,25 @@ namespace CoinAcceptor{
     public class Coinacceptor : SerialPortHelper
     {
         /// <summary>
-        /// <para>Note : Declare the event using EventHandle</para>
+        /// <para>Note : Declare the event using EventHandle for Message</para>
         /// </summary>
-        public event EventHandler<Events> RaiseEvents;
-
+        public event EventHandler<Events> MessageEvents;
+        /// <summary>
+        /// <para>Note : Declare the event using EventHandle for Coin Accept</para>
+        /// </summary>
+        public event EventHandler<Events> CoinAcceptorEvent;
         /// <summary>
         /// <para>Note : delegate method handle raise event</para>
         /// </summary>
-        protected virtual void OnRaiseEvent(Events e){
-            RaiseEvents?.Invoke(this, e);
+        protected virtual void OnMessage(Events e){
+            MessageEvents?.Invoke(this, e);
+        }
+        /// <summary>
+        /// <para>Note : delegate method handle raise event</para>
+        /// </summary>
+        protected virtual void OnCoinAcceptor(Events e)
+        {
+            CoinAcceptorEvent?.Invoke(this, e);
         }
 
         private SerialPort _serialPort = new SerialPort();
@@ -36,15 +46,40 @@ namespace CoinAcceptor{
             {
                 _serialPort = Initial();
                 if (_serialPort.IsOpen){
-
+                    _serialPort.DataReceived += CoinacceptorDataReceived;
                 }
-                OnRaiseEvent(new Events("connect"));
+                OnMessage(new Events("connect"));
             }
-            catch(Exception ex){ 
-                OnRaiseEvent(new Events(ex.Message));  
+            catch(Exception ex){
+                OnMessage(new Events(ex.Message));  
             }
             return result;
         }
+        /// <summary>
+        /// <para>Note : receive data from devices</para>
+        /// <para>coinIn1A : 9006120103AC</para>
+        /// <para>coinIn1B : 9006120603B1</para>
+        /// <para>coinIn2A : 9006120203AD</para>
+        /// <para>coinIn2B : 9006120503B0</para>
+        /// <para>coinIn5 : 9006120303AE</para>
+        /// <para>coinIn10 : 9006120403AF</para>
+        /// <para>unknown : 90055003E8</para>
+        /// <para>ready : 90051103A9</para>
+        /// <para>unavailable : 90051403AC</para>
+        /// <para>sensor1Exception : 9006160103B0</para>
+        /// <para>sensor2Exception : 9006160203B1</para>
+        /// <para>sensor3Exception : 9006160308B2</para>
+        /// </summary>
+        private void CoinacceptorDataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            SerialPort sp = (SerialPort)sender;
+            string received = sp.ReadExisting();
+            /*
+             * something code
+             */
+            OnCoinAcceptor(new Events("received"));
+        }
+
         /// <summary>
         /// <para>Note : send command to devices.</para>
         /// <para>return DevicesInfo</para>
@@ -64,40 +99,11 @@ namespace CoinAcceptor{
             catch (Exception ex){
                 response.Message = ex.Message;
                 response.State = false;
-                OnRaiseEvent(new Events(response.Message));
+                OnMessage(new Events(response.Message));
             }
             return response;
         }
 
-        /// <summary>
-        /// <para>Note : receive data from devices</para>
-        /// <para>coinIn1A : 9006120103AC</para>
-        /// <para>coinIn1B : 9006120603B1</para>
-        /// <para>coinIn2A : 9006120203AD</para>
-        /// <para>coinIn2B : 9006120503B0</para>
-        /// <para>coinIn5 : 9006120303AE</para>
-        /// <para>coinIn10 : 9006120403AF</para>
-        /// <para>unknown : 90055003E8</para>
-        /// <para>ready : 90051103A9</para>
-        /// <para>unavailable : 90051403AC</para>
-        /// <para>sensor1Exception : 9006160103B0</para>
-        /// <para>sensor2Exception : 9006160203B1</para>
-        /// <para>sensor3Exception : 9006160308B2</para>
-        /// </summary>
-        public Response Received(){
-            response = new Response();
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                response.Message = ex.Message;
-                OnRaiseEvent(new Events(response.Message));
-
-            }
-            return response;
-        }
         /// <summary>
         /// <para>Note : Enabled to devices.</para>
         /// <para>return success ? true : false</para>
@@ -108,7 +114,7 @@ namespace CoinAcceptor{
             try {
 
             }catch (Exception ex){
-                OnRaiseEvent(new Events(ex.Message));
+                OnMessage(new Events(ex.Message));
             }
             return result;
         }
@@ -122,7 +128,28 @@ namespace CoinAcceptor{
             try{
 
             }catch (Exception ex){
-                OnRaiseEvent(new Events(ex.Message));
+                OnMessage(new Events(ex.Message));
+            }
+            return result;
+        }
+        /// <summary>
+        /// <para>Note : Disconnect Devices</para>
+        /// </summary>
+        /// <returns>Boolean</returns>
+        public Boolean Disconnect()
+        {
+            bool result = false;
+            try
+            {
+                if (_serialPort.IsOpen)
+                {
+                    _serialPort.Close();
+                    result = true;
+                }
+            }
+            catch(Exception e)
+            {
+                OnMessage(new Events(e.Message));
             }
             return result;
         }

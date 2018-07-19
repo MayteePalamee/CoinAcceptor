@@ -11,99 +11,111 @@ namespace CoinAcceptor
     /// </summary>
     public class DeviceInfo
     {
-        private String connect;
-        private String disconnect;
-        private String fault;
-        private String unavailable;
-        private String success;
-        private String ready;
-
-        private String proximitySensors1;
-        private String proximitySensors2;
-        private String acceptorSensors;
-        private String unknown;
         private String coin1A;
         private String coin1B;
         private String coin2A;
         private String coin2B;
         private String coin5;
         private String coin10;
+        private String unknown;
+        private String unavailable;
+        private String ready;
+        private String proximitySensors1;
+        private String proximitySensors2;
+        private String proximitySensors3;
 
-        public String Unknown
-        {
-            get { return unknown; }
-            set { unknown = value; }
-        }
+
+        /// <summary>
+        /// data from devices.
+        /// </summary>
         public String Coin1A
         {
             get { return coin1A; }
             set { coin1A = value; }
         }
+        /// <summary>
+        /// data from devices.
+        /// </summary>
         public String Coin1B
         {
             get { return coin1B; }
             set { coin1B = value; }
         }
+        /// <summary>
+        /// data from devices.
+        /// </summary>
         public String Coin2A
         {
             get { return coin2A; }
             set { coin2A = value; }
         }
-        public String ProximitySensors1
-        {
-            get { return proximitySensors1; }
-            set { proximitySensors1 = value; }
-        }
+        /// <summary>
+        /// data devices from .config
+        /// </summary>
         public String Coin2B
         {
             get { return coin2B; }
             set { coin2B = value; }
         }
+        /// <summary>
+        /// data devices from .config
+        /// </summary>
         public String Coin5
         {
             get { return coin5; }
             set { coin5 = value; }
         }
+        /// <summary>
+        /// data devices from .config
+        /// </summary>
         public String Coin10
         {
             get { return coin10; }
             set { coin10 = value; }
         }
+        /// <summary>
+        /// data devices from .config
+        /// </summary>
+        public String ProximitySensors1
+        {
+            get { return proximitySensors1; }
+            set { proximitySensors1 = value; }
+        }
+        /// <summary>
+        /// data from devices.
+        /// </summary>
         public String ProximitySensors2
         {
             get { return proximitySensors2; }
             set { proximitySensors2 = value; }
         }
-        public String AcceptorSensors
+        /// <summary>
+        /// data from devices.
+        /// </summary>
+        public String ProximitySensors3
         {
-            get { return acceptorSensors; }
-            set { acceptorSensors = value; }
+            get { return proximitySensors3; }
+            set { proximitySensors3 = value; }
         }
-        public String Connect
+        /// <summary>
+        /// data from devices.
+        /// </summary>
+        public String Unknown
         {
-            get { return connect; }
-            set { connect = value; }
+            get { return unknown; }
+            set { unknown = value; }
         }
-        public String Disconnect
-        {
-            get { return disconnect; }
-            set { disconnect = value; }
-        }
-        public String Fault
-        {
-            get { return fault; }
-            set { fault = value; }
-        }
+        /// <summary>
+        /// data from devices.
+        /// </summary>
         public String Unavailable
         {
             get { return unavailable; }
             set { unavailable = value; }
         }
-        public String Success
-        {
-            get { return success; }
-            set { success = value; }
-        }
+        /// <summary>
+        /// data from devices.
+        /// </summary>
         public String Ready
         {
             get { return ready; }
