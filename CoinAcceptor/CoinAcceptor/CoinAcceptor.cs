@@ -72,8 +72,8 @@ namespace CoinAcceptor{
         /// </summary>
         private void CoinacceptorDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            SerialPort sp = (SerialPort)sender;
-            string received = sp.ReadExisting();
+            SerialPort serial = (SerialPort)sender;
+            string received = serial.ReadExisting();
             /*
              * something code
              */
