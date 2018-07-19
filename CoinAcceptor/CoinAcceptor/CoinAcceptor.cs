@@ -34,7 +34,7 @@ namespace CoinAcceptor{
         }
 
         private SerialPort _serialPort = new SerialPort();
-        private Response response;
+        private Stated response;
 
         /// <summary>
         /// <para>Note : connect to devices.</para>
@@ -89,8 +89,8 @@ namespace CoinAcceptor{
         /// <para>Status Device : 90051103A9</para>
         /// <para>Firmware Version : 900503039B</para>
         /// </summary>
-        public Response Transmitte(string command){
-            response = new Response();
+        public Stated Transmitte(string command){
+            response = new Stated();
             try
             {
 
@@ -107,7 +107,7 @@ namespace CoinAcceptor{
         /// <summary>
         /// <para>Note : Enabled to devices.</para>
         /// <para>return success ? true : false</para>
-        /// <para>Enabled Device : 9005010399</para>
+        /// <para>Command Device : 9005010399</para>
         /// </summary>
         public Boolean Enabled(){
             bool result = false;
@@ -121,7 +121,7 @@ namespace CoinAcceptor{
         /// <summary>
         /// <para>Note : Disabled to devices.</para>
         /// <para>return success ? true : false</para>
-        /// <para>Enabled Device : 900502039A</para>
+        /// <para>Command Device : 900502039A</para>
         /// </summary>
         public Boolean Disabled(){
             bool result = false;

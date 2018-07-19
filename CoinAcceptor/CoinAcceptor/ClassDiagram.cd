@@ -28,11 +28,11 @@
       <FileName>Events.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CoinAcceptor.Response">
+  <Class Name="CoinAcceptor.Stated">
     <Position X="8.25" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAJAAAACA=</HashCode>
-      <FileName>Response.cs</FileName>
+      <FileName>Stated.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CoinAcceptor.SerialPortHelper">

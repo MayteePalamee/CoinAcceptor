@@ -9,6 +9,9 @@ using System.Reflection;
 
 namespace CoinAcceptor
 {
+    /// <summary>
+    /// serial port config
+    /// </summary>
     public class SerialPortHelper : ConvertHelper
     {
         /**

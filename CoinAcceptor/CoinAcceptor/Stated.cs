@@ -9,7 +9,7 @@ namespace CoinAcceptor
     /// <summary>
     /// Response data Object.
     /// </summary>
-    public class Response
+    public class Stated
     {
         private Boolean state;
         private String message;
