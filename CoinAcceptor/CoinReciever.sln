@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinAcceptor", "CoinAcceptor\CoinAcceptor.csproj", "{F00B2836-97B0-422C-8C34-067D6588058F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoinReciever", "CoinAcceptor\CoinReciever.csproj", "{F00B2836-97B0-422C-8C34-067D6588058F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

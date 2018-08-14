@@ -7,8 +7,8 @@
     <ProjectGuid>{F00B2836-97B0-422C-8C34-067D6588058F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CoinAcceptor</RootNamespace>
-    <AssemblyName>CoinAcceptor</AssemblyName>
+    <RootNamespace>CoinReciever</RootNamespace>
+    <AssemblyName>CoinReciever</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\CoinAcceptor.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\CoinReciever.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,16 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CoinAcceptor.cs" />
-    <Compile Include="ConvertHelper.cs" />
-    <Compile Include="DeviceInfo.cs" />
-    <Compile Include="Events.cs" />
+    <Compile Include="CoinReciever.cs" />
+    <Compile Include="CoinEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="InitialPort.cs" />
     <Compile Include="SerialPortHelper.cs" />
-    <Compile Include="Stated.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <Compile Include="CoinState.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
