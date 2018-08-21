@@ -6,10 +6,10 @@ namespace CoinReciever{
     /// <summary>
     /// <para>Note : Coin Reciever Class</para>
     /// </summary>
-    public class Coinreciever : SerialPortHelper
+    public class CoinReciever : SerialPortHelper
     {
         //return state
-        private string _invoke = "";
+        private CoinState _invoke = CoinState.Unknown;
         //Acknowledge event
         private delegate string _acknowledge(String e);
         private event _acknowledge _accept;
@@ -27,13 +27,13 @@ namespace CoinReciever{
         /// <summary>
         /// <para>Note : Declare the event using EventHandle for Coin Accept</para>
         /// </summary>
-        public event EventHandler<CoinEvent> Reciever;
+        public event EventHandler<CoinEvent> Recieved;
         /// <summary>
         /// <para>Note : delegate method handle raise event</para>
         /// </summary>
-        protected virtual void OnReveiver(CoinEvent e)
+        protected virtual void OnReveived(CoinEvent e)
         {
-            Reciever?.Invoke(this, e);
+            Recieved?.Invoke(this, e);
         }
 
         private SerialPort _serialPort = new SerialPort();
@@ -69,7 +69,7 @@ namespace CoinReciever{
         /// <para>Status Device : 90051103A9</para>
         /// <para>Firmware Version : 900503039B</para>
         /// </summary>
-        public String CurrentStatus()
+        public CoinState CurrentStatus()
         {
             byte[] data = { };
             try
@@ -87,7 +87,11 @@ namespace CoinReciever{
             }
             catch (Exception exception)
             {
-                _serialPort.Close();
+                if (_serialPort.IsOpen)
+                {
+                    _serialPort.Close();
+                }
+                _invoke = CoinState.Unavailable;
                 Console.WriteLine("exception : " + exception);
             }
             Console.WriteLine("current state : " + _invoke);
@@ -100,7 +104,7 @@ namespace CoinReciever{
         /// <para>return status</para>
         /// <para>Command Device : 9005010399</para>
         /// </summary>
-        public String Open(){
+        public CoinState Open(){
             Byte[] data = { };
             try
             {
@@ -115,19 +119,22 @@ namespace CoinReciever{
                     data = ConvertHexToByte("9005010399");
                     _serialPort.Write(data, 0, data.Length);
 
-                    _accept += CoinInfo;
                     Thread.Sleep(100);
                     CallbackState();
-
-                    if (_invoke.Equals(CoinState.Ready.ToString()))
-                    {                        
+                    _accept += CoinInfo;
+                    if (_invoke.Equals(CoinState.Ready))
+                    {
                         _serialPort.DataReceived += _serialPortDataReceived;
                     }
                 }
             }
             catch (Exception exception)
             {
-                _serialPort.Close();
+                if (_serialPort.IsOpen)
+                {
+                    _serialPort.Close();
+                }
+                _invoke = CoinState.Unavailable;
                 Console.WriteLine("exception : " + exception);
             }
             return _invoke;
@@ -138,10 +145,12 @@ namespace CoinReciever{
         /// <para>return success ? true : false</para>
         /// <para>Command Device : 900502039A</para>
         /// </summary>
-        public String Close(){
+        public CoinState Close(){
             Byte[] data = { };
             try
             {
+                _accept -= CoinInfo;
+                _serialPort.DataReceived -= _serialPortDataReceived;
                 if (!_serialPort.IsOpen)
                 {
                     _serialPort.Open();
@@ -161,11 +170,13 @@ namespace CoinReciever{
             }
             catch (Exception exception)
             {
-                _serialPort.Close();
+                if (_serialPort.IsOpen)
+                {
+                    _serialPort.Close();
+                }
+                _invoke = CoinState.Unavailable;
                 Console.WriteLine("exception : " + exception);
             }
-            _accept -= CoinInfo;
-            _serialPort.DataReceived -= _serialPortDataReceived;
             return _invoke;
         }
 
@@ -180,46 +191,80 @@ namespace CoinReciever{
         {
             if (_serialPort.IsOpen)
             {
+               int count = 0;
                 SerialPort sp = (SerialPort)sender;
-                int count = sp.BytesToRead;
+                do
+                {
+                  count = sp.BytesToRead;
+                } while (count < 6) ;
+                
+                int totBytesRead = 0;
                 byte[] data = new byte[count];
-                sp.Read(data, 0, data.Length);
+                while (totBytesRead < count)
+                {
+                    int bytesRead = sp.Read(data, 0, count - totBytesRead);
+                    totBytesRead += bytesRead;
+                }
 
                 string result = OnAccept(ConvertByteToString(data));
-                OnReveiver(new CoinEvent(result));
+                OnReveived(new CoinEvent(result));
             }
         }
 
         private string CoinInfo(String data)
         {
             string coin = "";
-            switch (data.ToUpper())
+            if (data.ToUpper().Contains("9006120103AC"))
             {
-                case "9006120103AC":
-                    coin = "1";
-                    break;
-                case "9006120603B1":
-                    coin = "1";
-                    break;
-                case "9006120203AD":
-                    coin = "2";
-                    break;
-                case "9006120503B0":
-                    coin = "2";
-                    break;
-                case "9006120303AE":
-                    coin = "5";
-                    break;
-                case "9006120403AF":
-                    coin = "10";
-                    break;
-                case "90055003E8":
-                    coin = "";
-                    break;
-                default:
-                    coin = "";
-                    break;
+                coin = "1";
             }
+            else if (data.ToUpper().Contains("9006120603B1"))
+            {
+                coin = "1";
+            }
+            else if(data.ToUpper().Contains("9006120503B0"))
+            {
+                coin = "2";
+            }
+            else if(data.ToUpper().Contains("9006120203AD"))
+            {
+                coin = "2";
+            }
+            else if(data.ToUpper().Contains("9006120303AE"))
+            {
+                coin = "5";
+            }
+            else if(data.ToUpper().Contains("9006120403AF"))
+            {
+                coin = "10";
+            }
+            /* switch (data.ToUpper())
+             {
+                 case "9006120103AC":
+                     coin = "1";
+                     break;
+                 case "9006120603B1":
+                     coin = "1";
+                     break;
+                 case "9006120203AD":
+                     coin = "2";
+                     break;
+                 case "9006120503B0":
+                     coin = "2";
+                     break;
+                 case "9006120303AE":
+                     coin = "5";
+                     break;
+                 case "9006120403AF":
+                     coin = "10";
+                     break;
+                 case "90055003E8":
+                     coin = "";
+                     break;
+                 default:
+                     coin = "";
+                     break;
+             }*/
             return coin;
         }
         private void CallbackState()
@@ -228,7 +273,6 @@ namespace CoinReciever{
             bool state = false;
             try
             {
-                _serialPort.DataReceived -= _serialPortDataReceived;
                 if (!_serialPort.IsOpen)
                 {
                     _serialPort.Open();
@@ -239,7 +283,6 @@ namespace CoinReciever{
                     do {
                         data = ConvertHexToByte("90051103A9");
                         _serialPort.Write(data, 0, data.Length);
-
                         Thread.Sleep(100);
                         state = CallState(_serialPort);
                     } while (state);
@@ -255,7 +298,27 @@ namespace CoinReciever{
         private delegate void getStatus(string data);
         private void StateInfo(string data)
         {
-            switch (data.ToUpper())
+            if (data.ToUpper().Contains("90051103A9"))
+            {
+                _invoke = CoinState.Ready;
+            }
+            else if (data.ToUpper().Contains("90051403AC"))
+            {
+                _invoke = CoinState.Unavailable;
+            }
+            else if(data.ToUpper().Contains("9006160103B0"))
+            {
+                _invoke = CoinState.Sensor_1_problem;
+            }
+            else if(data.ToUpper().Contains("9006160203B1"))
+            {
+                _invoke = CoinState.Sensor_2_problem;
+            }
+            else if(data.ToUpper().Contains("9006160303B2"))
+            {
+                _invoke = CoinState.Sensor_3_problem;
+            }
+            /*switch (data.ToUpper())
             {
                 case "90051103A9":
                     _invoke = CoinState.Ready.ToString();
@@ -273,9 +336,9 @@ namespace CoinReciever{
                     _invoke = CoinState.Sensor_3_problem.ToString();
                     break;
                 default:
-                    _invoke = "default";
+                    _invoke = "";
                     break;
-            }
+            }*/
         }
         private bool CallState(SerialPort serialPort)
         {
@@ -283,9 +346,13 @@ namespace CoinReciever{
             bool status = false;
             if (serialPort.IsOpen)
             {
-                serialPort.ReadTimeout = 1000;
-                int count = serialPort.BytesToRead;
-                if(count > 5) { status = true; }
+                int count = 0;
+                do
+                {
+                    count = serialPort.BytesToRead;
+                } while (count == 0);
+                //serialPort.ReadTimeout = 1000;
+                if (count > 10) { status = true; }
                     int totBytesRead = 0;
                     rxBytes = new byte[count];
                     while (totBytesRead < count)
@@ -294,7 +361,7 @@ namespace CoinReciever{
                         totBytesRead += bytesRead;
                     }
                 getStatus get = new getStatus(StateInfo);
-                get(ConvertByteToString(rxBytes));
+                get(ConvertByteToString(rxBytes));               
             }
             return status;
         }

@@ -12,12 +12,12 @@ namespace CoinReciever
     public class CoinEvent : EventArgs
     {
         private readonly String _message;
-        private int _state;
+        private CoinState _state;
         /// <summary>
         /// setting status
         /// </summary>
         /// <param name="state">status</param>
-        public CoinEvent(int state)
+        public CoinEvent(CoinState state)
         {
             _state = state;
         }
@@ -38,7 +38,7 @@ namespace CoinReciever
         /// <summary>
         /// getting status
         /// </summary>
-        public int State
+        public CoinState State
         {
             get { return _state; }
         }

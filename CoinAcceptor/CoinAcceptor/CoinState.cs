@@ -5,8 +5,12 @@ namespace CoinReciever
     /// <summary>
     /// responde status device class
     /// </summary>
-    public enum CoinState : int
+    public enum CoinState
     {
+        /// <summary>
+        /// Initial status
+        /// </summary>
+        Unknown = -1,
         /// <summary>
         /// status device Unavailable.
         /// </summary>

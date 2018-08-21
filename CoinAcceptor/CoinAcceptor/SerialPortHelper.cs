@@ -22,10 +22,11 @@ namespace CoinReciever
             _serialport.DataBits = init.DataBits;
             _serialport.StopBits = StopBits.One;
             _serialport.DtrEnable = init.DtrEnable;
-            _serialport.Parity = Parity.Even;
-            _serialport.NewLine = "\r\n";
+            _serialport.Parity = Parity.None;
+            //_serialport.NewLine = "\r\n";
+            _serialport.ReceivedBytesThreshold = 1;
             //_serialport.WriteTimeout = 500;
-            //_serialport.ReadTimeout = 500;
+            //_serialport.ReadTimeout = 2000;
             _serialport.RtsEnable = true;
             return _serialport;
         }
